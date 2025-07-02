@@ -37,20 +37,23 @@ A modern web application built with Next.js that helps users estimate the amount
 ### Installation
 
 1. **Clone the repository:**
-   git clone https://github.com/Krish6190/Workit.git
-   cd Workit
+git clone https://github.com/Krish6190/Workit.git
+cd Workit
+
 
 2. **Install dependencies:**
-   npm install
+npm install
 
 or
 yarn install
 
+
 3. **Run the development server:**
-   npm run dev
+npm run dev
 
 or
 yarn dev
+
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
