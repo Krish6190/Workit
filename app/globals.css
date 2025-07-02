@@ -1,9 +1,10 @@
 .welcome{
   font-size: 3em;
   text-align: center;
-  margin: 2em 0 0 0;
+  margin: 2.5em 0 0 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
 .results{
   font-size: 1em;
   align-items: center;
@@ -12,4 +13,16 @@
   padding: 20;
   max-width: 1200;
   margin: auto;
+}
+
+.auth-bar{
+  margin:70px;
+  size: 1em;
+  max-width: 750;
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
 }
