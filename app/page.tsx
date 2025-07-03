@@ -10,7 +10,7 @@ import { useState } from "react";
 
 export default function Home() {
   let [prop, setProp] = useState(1);
-  
+
   function login() {
     if (prop != 1) setProp(1);
   }
@@ -23,17 +23,21 @@ export default function Home() {
     setProp(1);
   }
   return (
-    <div>
-      <div className="welcome">
-        Welcome
-        <br></br>
-        So who are we serving Today
-      </div>
-      {prop && <Authentication></Authentication>}
-      {!prop && <Register onRegisterSuccess={showLogin}></Register>}
-      <div className="logReg">
-        <Link href="" onClick={() => { login() }}>Login |</Link><Link href="" onClick={() => { signup() }}>  SignUP</Link>
+    <html>
+      <body>
+        <div className="welcomeContainer">
+          <div className="welcome">
+            Welcome
+            <br></br>
+            So who are we serving Today
+          </div>
+          {prop && <Authentication></Authentication>}
+          {!prop && <Register onRegisterSuccess={showLogin}></Register>}
+          <div className="logReg">
+            <Link href="" onClick={() => { login() }}>Login |</Link><Link href="" onClick={() => { signup() }}>  SignUP</Link>
+          </div>
         </div>
-    </div>
+      </body>
+    </html>
   );
 }
