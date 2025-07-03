@@ -1,7 +1,7 @@
 "use client"
 /*
 TO DO : 
-Create the api for register toggle
+Update CSS for calculator
 */
 import Authentication from "./Authenticate";
 import Register from "./register";
@@ -23,8 +23,6 @@ export default function Home() {
     setProp(1);
   }
   return (
-    <html>
-      <body>
         <div className="welcomeContainer">
           <div className="welcome">
             Welcome
@@ -37,7 +35,5 @@ export default function Home() {
             <Link href="" onClick={() => { login() }}>Login |</Link><Link href="" onClick={() => { signup() }}>  SignUP</Link>
           </div>
         </div>
-      </body>
-    </html>
   );
 }

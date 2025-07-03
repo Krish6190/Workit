@@ -22,7 +22,7 @@ export default function Register({onRegisterSuccess }:RegisterProp) {
       return;
     }
     if (password !== confirm) {
-      setError("Passwords do not match.");
+      setError("Plz enter the same password");
       return;
     }
 
