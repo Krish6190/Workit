@@ -54,5 +54,10 @@
 .loginCred{
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
+}
+
+.error{
+  color: red;
+  font-size: 0.7em;
 }

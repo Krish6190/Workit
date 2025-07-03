@@ -18,7 +18,7 @@ export default function Authentication() {
             router.push("/calculator");
         } else {
             const data = await res.json();
-            SetError("Incorrect Credentials");
+            SetError(data.error ||"Incorrect Credentials");
         }
     }
     return (
@@ -38,6 +38,7 @@ export default function Authentication() {
                 onChange={e => SetPassword(e.target.value)}
                 placeholder="Enter the Password"
             />
+            {error && <p className="error">{error}</p>}
             </div>
             <button type="submit" id="loginButton">Login</button>
         </form>
