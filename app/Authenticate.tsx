@@ -1,5 +1,5 @@
 "use client"
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Authentication() {
@@ -11,6 +11,7 @@ export default function Authentication() {
         e.preventDefault();
         const res=await fetch("/api/login", {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password })
         });
         if (res.ok) {
