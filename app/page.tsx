@@ -29,8 +29,8 @@ export default function Home() {
             <br></br>
             So who are we serving Today
           </div>
-          {prop && <Authentication></Authentication>}
-          {!prop && <Register onRegisterSuccess={showLogin}></Register>}
+          {prop==1 && <Authentication></Authentication>}
+          {prop==0 && <Register onRegisterSuccess={showLogin}></Register>}
           <div className="logReg">
             <Link href="" onClick={() => { login() }}>Login |</Link><Link href="" onClick={() => { signup() }}>  SignUP</Link>
           </div>

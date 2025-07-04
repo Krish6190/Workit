@@ -72,8 +72,8 @@ export default function Register({onRegisterSuccess }:RegisterProp) {
           placeholder="Re-Enter the Password"
         />
       </div>
-      {error && <p className="error" style={{ color: "red" }}>{error}</p>}
-      {success && <p className="success" style={{ color: "green" }}>{success}</p>}
+      {error && <p className="error">{error}</p>}
+      {success && <p className="success">{success}</p>}
       <button type="submit">Register</button>
     </form>
   );
