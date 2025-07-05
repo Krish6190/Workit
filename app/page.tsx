@@ -1,8 +1,8 @@
 "use client"
 /*
 TO DO : 
+Find good background images
 Update CSS for calculator
-Add a feature to accept strong password 
 Add a home page
 */
 import Authentication from "./Authenticate";

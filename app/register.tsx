@@ -12,6 +12,7 @@ export default function Register({onRegisterSuccess }:RegisterProp) {
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [passError,setPassError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(e:React.FormEvent<HTMLFormElement>) {
@@ -19,7 +20,7 @@ export default function Register({onRegisterSuccess }:RegisterProp) {
     setError("");
     setSuccess("");
 
-    if (!username || !password || !confirm) {
+    if (!username || !password || !confirm || passError) {
       setError("All fields are required.");
       return;
     }
@@ -45,6 +46,17 @@ export default function Register({onRegisterSuccess }:RegisterProp) {
     }
   }
 
+  function containsUppercase(str:string) {
+    return /[A-Z]/.test(str) && /\d/.test(str);
+  }
+
+  function passRes(){
+    if(password.length<9 || !containsUppercase(password)){
+      setPassError("Password should be atleast 8 character and contain an uppercase letter and a number")
+    }
+    else setPassError("");
+  }
+
   return (
     <form onSubmit={handleSubmit} className="auth-bar" id="registerFrom">
       <div className="loginCred">
@@ -63,11 +75,14 @@ export default function Register({onRegisterSuccess }:RegisterProp) {
           value={password}
           onChange={e => setPassword(e.target.value)}
           placeholder="Enter the Password"
+          onBlur={()=>passRes()}
+          onFocus={()=>setPassError("")}
         />
-        <button onClick={()=>setShowPassword(v=>!v)} type="button" className="eye">
+        <button onClick={()=>setShowPassword(v=>!v)} type="button" className="eye eye2">
           {showPassword==true?<FaEye/>:<FaEyeSlash/>}
         </button>
       </div>
+      {passError!="" && <div className="error passError">{passError}</div>}
       <div className="loginCred">
         Confirm Password:
         <input
