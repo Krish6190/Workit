@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FaEye,FaEyeSlash } from "react-icons/fa";
 
 type RegisterProp={
     onRegisterSuccess: ()=>void;
@@ -11,6 +12,7 @@ export default function Register({onRegisterSuccess }:RegisterProp) {
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(e:React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -57,11 +59,14 @@ export default function Register({onRegisterSuccess }:RegisterProp) {
       <div className="loginCred">
         Password:
         <input
-          type="password"
+          type={!showPassword?"password":"text"}
           value={password}
           onChange={e => setPassword(e.target.value)}
           placeholder="Enter the Password"
         />
+        <button onClick={()=>setShowPassword(v=>!v)} type="button" className="eye">
+          {showPassword==true?<FaEye/>:<FaEyeSlash/>}
+        </button>
       </div>
       <div className="loginCred">
         Confirm Password:
@@ -74,7 +79,7 @@ export default function Register({onRegisterSuccess }:RegisterProp) {
       </div>
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
-      <button type="submit">Register</button>
+      <button type="submit" id="regButton">Register</button>
     </form>
   );
 }

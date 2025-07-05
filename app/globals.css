@@ -63,7 +63,7 @@
   border: 1.5px solid #1976d2;
 }
 
-button {
+#regButton {
   position: relative;
   justify-items: end;
   margin-top: 12px;
@@ -78,7 +78,7 @@ button {
   box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
 }
 
-button:hover {
+#regButton:hover {
   background: #1565c0;
 }
 
@@ -129,7 +129,7 @@ button:hover {
   color: rgb(64, 64, 64)
 }
 
-.auth-bar button{
+.auth-bar #loginButton{
   background-color: rgb(81, 211, 247);
   height: 40px;
   width: 120px;
@@ -137,14 +137,15 @@ button:hover {
   border-radius: 7%;
 }
 
-.auth-bar button:hover{
+.auth-bar #loginButton:hover{
   background-color: rgb(81, 194, 247);
 }
-.auth-bar button:active{
+.auth-bar #loginButton:active{
   transform:translateY(1px);
 }
 
 .loginCred{
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -167,6 +168,24 @@ button:hover {
 }
 
 #registerFrom{
-  font-size: 1.2em;
+  font-size: 1.3em;
   gap: 10px;
+}
+
+.eye{
+  position: absolute;
+  right: 0.3em;
+  top: 74%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: #666666;
+  font-size: 1.2em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

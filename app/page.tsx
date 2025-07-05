@@ -2,6 +2,8 @@
 /*
 TO DO : 
 Update CSS for calculator
+Add a feature to accept strong password 
+Add a home page
 */
 import Authentication from "./Authenticate";
 import Register from "./register";
