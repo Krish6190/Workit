@@ -29,7 +29,7 @@ A modern web application built with Next.js that helps users estimate the amount
 - **Exercise Distribution Logic:**
   - If walking time to burn all extra calories is ≤ 5 min: all calories assigned to walking.
   - If walking time > 5 min: first 5 min worth of calories to walking; remaining calories are split equally into walking, push-ups, and squats.
-  - Sprinting time is always calculated for the total extra calories and can be selected as an alternative to walking.
+  - Sprinting time is also calculated the same way.
 
 ---
 
