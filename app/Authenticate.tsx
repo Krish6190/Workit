@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-export default function Authentication() {
+export function Authentication() {
     let [username, SetUsername] = useState("");
     let [password, SetPassword] = useState("");
     let [error,SetError] = useState("");
@@ -17,7 +17,7 @@ export default function Authentication() {
             body: JSON.stringify({ username, password })
         });
         if (res.ok) {
-            router.push("/calculator");
+            router.push(`/home`);
         } else {
             const data = await res.json();
             SetError(data.error ||"Incorrect Credentials");
@@ -48,4 +48,15 @@ export default function Authentication() {
             <button type="submit" id="loginButton">Login</button>
         </form>
     );
+}
+
+export function LogOut(){
+    const router=useRouter();
+    async function handleLogout(){
+        await fetch("./api/logout",{method:"POSt"});
+        router.push("./login");
+    }
+    return(
+        <div className="LogOut" onClick={()=>handleLogout()}>Logout</div>
+    )
 }

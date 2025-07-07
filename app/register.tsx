@@ -51,7 +51,7 @@ export default function Register({onRegisterSuccess }:RegisterProp) {
   }
 
   function passRes(){
-    if(password.length<9 || !containsUppercase(password)){
+    if((password.length<9 || !containsUppercase(password)) && password.length>0){
       setPassError("Password should be atleast 8 character and contain an uppercase letter and a number")
     }
     else setPassError("");

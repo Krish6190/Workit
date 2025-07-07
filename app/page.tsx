@@ -2,10 +2,11 @@
 /*
 TO DO : 
 Find good background images
-Update CSS for calculator
-Add a home page
+Update CSS for calculator and navbar
+Make a logout route 
+Make proper navbar logic
 */
-import Authentication from "./Authenticate";
+import {Authentication} from "./Authenticate";
 import Register from "./register";
 import Link from "next/link";
 import { useState } from "react";

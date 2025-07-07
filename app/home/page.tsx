@@ -1,9 +1,12 @@
-import { useRouter } from "next/router";
-let router=useRouter();
+import { cookies } from "next/headers"
+import NavigationBar from "../navigation"
 
-export default function firstPage(){
-
+export default async function FirstPage(){
+    let cookieStore= await cookies();
+    const username=cookieStore.get("session")?.value;
     return(
-        <div></div>
+        <div>
+            <NavigationBar/>
+        </div>
     )
 }
