@@ -23,7 +23,7 @@ A modern web application built with Next.js that helps users estimate the amount
 - **TDEE:** `BMR × Activity Factor`
 - **Calories Burned (per activity):**
   - Walking: `3.5 MET × weight(kg) × duration(hours)`
-  - Sprinting: `10 MET × weight(kg) × duration(hours)`
+  - Sprinting: `11 MET × weight(kg) × duration(hours)`
   - Push-ups: `~0.45 calories per rep`
   - Squats: `~0.13 calories per rep`
 - **Exercise Distribution Logic:**
