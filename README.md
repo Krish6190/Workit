@@ -1,83 +1,90 @@
-# Calorie Burn Calculator
-
+Calorie Burn Calculator
 A modern web application built with Next.js that helps users estimate the amount of exercise needed to burn off extra calories consumed. Enter your personal details and extra calorie intake, and the app calculates your Basal Metabolic Rate (BMR), Total Daily Energy Expenditure (TDEE), and the number of minutes or reps required for various exercises to balance your energy intake.
 
----
+Features
+Personalized Calculations: Input your age, sex, weight, height, and activity level for tailored results.
 
-## Features
+BMR & TDEE Estimates: Calculates your Basal Metabolic Rate and Total Daily Energy Expenditure.
 
-- **Personalized Calculations:** Input your age, sex, weight, height, and activity level for tailored results.
-- **BMR & TDEE Estimates:** Calculates your Basal Metabolic Rate and Total Daily Energy Expenditure.
-- **Exercise Equivalents:** See how many minutes of walking/sprinting, or how many push-ups/squats, are needed to burn your extra calories.
-- **Educational:** Transparent about formulas and assumptions, helping users understand their energy balance.
+Exercise Equivalents: See how many minutes of walking or sprinting, or how many push-ups or squats, are needed to burn your extra calories.
 
----
+Interactive Choice: After calculation, choose to see either walking or sprinting time, with push-ups and squats always displayed.
 
-## Formulas Used
+Educational: Transparent about formulas and assumptions, helping users understand their energy balance.
 
-- **BMR (Mifflin-St Jeor Equation):**
-  - Men: `10 × weight(kg) + 6.25 × height(cm) - 5 × age + 5`
-  - Women: `10 × weight(kg) + 6.25 × height(cm) - 5 × age - 161`
-- **TDEE:** `BMR × Activity Factor`
-- **Calories Burned (per activity):**
-  - Walking: `3.5 MET × weight(kg) × duration(hours)`
-  - Sprinting: `10 MET × weight(kg) × duration(hours)`
-  - Push-ups: `~0.45 calories per rep`
-  - Squats: `~0.13 calories per rep`
+Modern UI: Responsive and user-friendly design.
 
----
+Formulas Used
+BMR (Mifflin-St Jeor Equation):
 
-## Getting Started
+Men: 10 × weight(kg) + 6.25 × height(cm) - 5 × age + 5
 
-### Prerequisites
+Women: 10 × weight(kg) + 6.25 × height(cm) - 5 × age - 161
 
-- [Node.js](https://nodejs.org/) (v18 or newer recommended)
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+TDEE: BMR × Activity Factor
 
-### Installation
+Calories Burned (per activity):
 
-1. **Clone the repository:**
+Walking: 3.5 MET × weight(kg) × duration(hours)
+
+Sprinting: 11 MET × weight(kg) × duration(hours)
+
+Push-ups: ~0.45 calories per rep
+
+Squats: ~0.13 calories per rep
+
+Exercise Distribution Logic:
+
+If walking time to burn all extra calories is ≤ 5 min: all calories assigned to walking.
+
+If walking time > 5 min: first 5 min worth of calories to walking; remaining calories are split equally into walking, push-ups, and squats.
+
+Sprinting time is always calculated for the total extra calories and can be selected as an alternative to walking.
+
+Getting Started
+Prerequisites
+Node.js (v18 or newer recommended)
+
+npm or yarn
+
+Installation
+Clone the repository:
+
+bash
 git clone https://github.com/Krish6190/Workit.git
 cd Workit
+Install dependencies:
 
-
-2. **Install dependencies:**
+bash
 npm install
-
 or
+
+bash
 yarn install
+Run the development server:
 
-
-3. **Run the development server:**
+bash
 npm run dev
-
 or
+
+bash
 yarn dev
+Open http://localhost:3000 in your browser.
 
+Usage
+Enter your personal details (age, sex, weight, height, activity level).
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Enter the number of extra calories you’ve consumed.
 
----
+Click Calculate to see your BMR, TDEE, and the exercise equivalents needed to burn off the extra calories.
 
-## Usage
+After calculation, choose to view either walking or sprinting time; push-ups and squats are always displayed.
 
-1. Enter your personal details (age, sex, weight, height, activity level).
-2. Enter the number of extra calories you’ve consumed.
-3. Click **Calculate** to see your BMR, TDEE, and the exercise equivalents needed to burn off the extra calories.
+Disclaimer
+All calculations are estimates based on standard formulas and MET values. Actual calorie burn may vary depending on individual metabolism, exercise intensity, and other factors. This tool is for informational and motivational purposes only and should not be used as a substitute for professional medical or fitness advice.
 
----
+License
+This project is open-source and available under the MIT License.
 
-## Disclaimer
-
-All calculations are **estimates** based on standard formulas and MET values. Actual calorie burn may vary depending on individual metabolism, exercise intensity, and other factors. This tool is for informational and motivational purposes only and should not be used as a substitute for professional medical or fitness advice.
-
----
-
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-**Contributions are welcome!**  
-Feel free to open issues or submit pull requests for improvements.
+Contributions are welcome!
+Feel free to open issues or submit pull requests for improvements and new features.
