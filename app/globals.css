@@ -22,7 +22,7 @@
 
 .calculator-container {
   position: fixed;
-  left: 10%;
+  left: 20%;
   height: 64vh;
   display: flex;
   text-align: center;

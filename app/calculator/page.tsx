@@ -31,6 +31,7 @@ export default function Calculator() {
   });
 
   const [results, setResults] = useState<Results | null>(null);
+  const [selectedMode, setSelectedMode] = useState<"walking" | "sprinting">("walking");
 
   function calculateBMR({ age, sex, weight, height }: FormState): number {
     const ageNum = Number(age);
@@ -57,27 +58,43 @@ export default function Calculator() {
     const tdee = bmr * Number(form.activityLevel);
     const calories = Number(form.extraCalories);
     const weightNum = Number(form.weight);
+    const walkCalPerMin = 3.5 * weightNum / 60;
+    const sprintCalPerMin = 11 * weightNum / 60;
 
-    const walkingMinutes = weightNum
-      ? (calories / (3.5 * weightNum / 60)).toFixed(1)
-      : "0";
-    const sprintingMinutes = weightNum
-      ? (calories / (10 * weightNum / 60)).toFixed(1)
-      : "0";
-    const pushups = (calories / 0.45).toFixed(0);
-    const squats = (calories / 0.13).toFixed(0);
+    let walkingMinutes = calories / walkCalPerMin;
+    let sprintingMinutes = calories / sprintCalPerMin;
+    let pushups = 0;
+    let squats = 0;
+    let walkingDisplay = 0;
+    let sprintingDisplay = 0;
+
+    if (walkingMinutes <= 5) {
+      walkingDisplay = walkingMinutes;
+      walkingDisplay = sprintingMinutes;
+    } else {
+      const first5MinCals = 5 * walkCalPerMin;
+      const remainingCals = calories - first5MinCals;
+
+      const eachPart = remainingCals / 3;
+
+      walkingDisplay = 5 + (eachPart / walkCalPerMin);
+      sprintingDisplay = 5 + (eachPart / sprintCalPerMin);
+      pushups = eachPart / 0.45;
+      squats = eachPart / 0.13;
+    }
 
     setTimeout(() => {
       setResults({
         bmr: bmr.toFixed(0),
         tdee: tdee.toFixed(0),
-        walkingMinutes,
-        sprintingMinutes,
-        pushups,
-        squats,
+        walkingMinutes: walkingDisplay.toFixed(1),
+        sprintingMinutes: sprintingDisplay.toFixed(1),
+        pushups: pushups ? pushups.toFixed(0) : "0",
+        squats: squats ? squats.toFixed(0) : "0",
       });
     }, 500);
   }
+
 
   return (
     <div>
@@ -171,12 +188,31 @@ export default function Calculator() {
           {results ? (
             <>
               <h2>Results</h2>
+              <p>Choose what you like:
+                <button
+                  className={selectedMode === "walking" ? "active" : ""}
+                  onClick={() => setSelectedMode("walking")}
+                  style={{ margin: "0 5px", padding: "2px 6px" }}
+                >
+                  Walking
+                </button>
+                <button
+                  className={selectedMode === "sprinting" ? "active" : ""}
+                  onClick={() => setSelectedMode("sprinting")}
+                  style={{ margin: "0 5px", padding: "2px 6px" }}
+                >
+                  Sprinting
+                </button>
+              </p>
               <p>BMR: {results.bmr} kcal/day</p>
-              <p>Total Calories Burned to Survive: {results.tdee} kcal/day</p>
-              <p>Walking minutes to burn extra calories: {results.walkingMinutes}</p>
-              <p>Sprinting minutes to burn extra calories: {results.sprintingMinutes}</p>
-              <p>Push-ups needed: {results.pushups}</p>
-              <p>Squats needed: {results.squats}</p>
+              <p>Calories Burned to Survive: {results.tdee} kcal/day</p>
+              {selectedMode === "walking" ? (
+                <p>Walking(5km/h): {results.walkingMinutes} min</p>
+              ) : (
+                <p>Sprinting(8km/h): {results.sprintingMinutes} min</p>
+              )}
+              <p>Push-ups: {results.pushups}</p>
+              <p>Squats: {results.squats}</p>
             </>
           ) : (
             <div style={{ color: "#888", textAlign: "center" }}>
