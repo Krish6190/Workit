@@ -2,9 +2,8 @@
 /*
 TO DO : 
 Find good background images
-Update CSS for calculator and navbar
+Add an About page
 Make a logout route 
-Make proper navbar logic
 */
 import {Authentication} from "./Authenticate";
 import Register from "./register";

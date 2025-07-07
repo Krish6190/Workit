@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import NavigationBar from "../navigation";
 
 interface FormState {
   age: string;
@@ -79,107 +80,110 @@ export default function Calculator() {
   }
 
   return (
-    <div className="calculator-container">
-      <form className="calculator-form" onSubmit={handleSubmit}>
-        <h1>Calorie Burn Calculator</h1>
+    <div>
+      <NavigationBar />
+      <div className="calculator-container">
+        <form className="calculator-form" onSubmit={handleSubmit}>
+          <h1>Calorie Burn Calculator</h1>
 
-        <div className="label">
-          <label htmlFor="age">Age:</label>
-          <input
-            id="age"
-            type="number"
-            name="age"
-            value={form.age}
-            onChange={handleChange}
-            min={0}
-            max={110}
-          />
-        </div>
-
-        <div className="label">
-          <label htmlFor="sex">Sex:</label>
-          <select
-            id="sex"
-            name="sex"
-            value={form.sex}
-            onChange={handleChange}
-          >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </div>
-
-        <div className="label">
-          <label htmlFor="weight">Weight (kg):</label>
-          <input
-            id="weight"
-            type="number"
-            name="weight"
-            value={form.weight}
-            onChange={handleChange}
-            min={0}
-          />
-        </div>
-
-        <div className="label">
-          <label htmlFor="height">Height (cm):</label>
-          <input
-            id="height"
-            type="number"
-            name="height"
-            value={form.height}
-            onChange={handleChange}
-            min={0}
-          />
-        </div>
-
-        <div className="label">
-          <label htmlFor="activityLevel">Activity Level:</label>
-          <select
-            id="activityLevel"
-            name="activityLevel"
-            value={form.activityLevel}
-            onChange={handleChange}
-          >
-            <option value="1.2">Sedentary</option>
-            <option value="1.375">Lightly active</option>
-            <option value="1.55">Moderately active</option>
-            <option value="1.725">Active</option>
-            <option value="1.9">Very active</option>
-          </select>
-        </div>
-
-        <div className="label">
-          <label htmlFor="extraCalories">Extra Calories Consumed:</label>
-          <input
-            id="extraCalories"
-            type="number"
-            name="extraCalories"
-            value={form.extraCalories}
-            onChange={handleChange}
-            min={0}
-          />
-        </div>
-
-        <button type="submit">Calculate</button>
-      </form>
-
-      <div className="results-panel">
-        {results ? (
-          <>
-            <h2>Results</h2>
-            <p>BMR: {results.bmr} kcal/day</p>
-            <p>Total Calories Burned to Survive: {results.tdee} kcal/day</p>
-            <p>Walking minutes to burn extra calories: {results.walkingMinutes}</p>
-            <p>Sprinting minutes to burn extra calories: {results.sprintingMinutes}</p>
-            <p>Push-ups needed: {results.pushups}</p>
-            <p>Squats needed: {results.squats}</p>
-          </>
-        ) : (
-          <div style={{ color: "#888", textAlign: "center"}}>
-            <p>Enter your details and press Calculate to see results.</p>
+          <div className="label">
+            <label htmlFor="age">Age:</label>
+            <input
+              id="age"
+              type="number"
+              name="age"
+              value={form.age}
+              onChange={handleChange}
+              min={0}
+              max={110}
+            />
           </div>
-        )}
+
+          <div className="label">
+            <label htmlFor="sex">Sex:</label>
+            <select
+              id="sex"
+              name="sex"
+              value={form.sex}
+              onChange={handleChange}
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+
+          <div className="label">
+            <label htmlFor="weight">Weight (kg):</label>
+            <input
+              id="weight"
+              type="number"
+              name="weight"
+              value={form.weight}
+              onChange={handleChange}
+              min={0}
+            />
+          </div>
+
+          <div className="label">
+            <label htmlFor="height">Height (cm):</label>
+            <input
+              id="height"
+              type="number"
+              name="height"
+              value={form.height}
+              onChange={handleChange}
+              min={0}
+            />
+          </div>
+
+          <div className="label">
+            <label htmlFor="activityLevel">Activity Level:</label>
+            <select
+              id="activityLevel"
+              name="activityLevel"
+              value={form.activityLevel}
+              onChange={handleChange}
+            >
+              <option value="1.2">Sedentary</option>
+              <option value="1.375">Lightly active</option>
+              <option value="1.55">Moderately active</option>
+              <option value="1.725">Active</option>
+              <option value="1.9">Very active</option>
+            </select>
+          </div>
+
+          <div className="label">
+            <label htmlFor="extraCalories">Extra Calories Consumed:</label>
+            <input
+              id="extraCalories"
+              type="number"
+              name="extraCalories"
+              value={form.extraCalories}
+              onChange={handleChange}
+              min={0}
+            />
+          </div>
+
+          <button type="submit">Calculate</button>
+        </form>
+
+        <div className="results-panel">
+          {results ? (
+            <>
+              <h2>Results</h2>
+              <p>BMR: {results.bmr} kcal/day</p>
+              <p>Total Calories Burned to Survive: {results.tdee} kcal/day</p>
+              <p>Walking minutes to burn extra calories: {results.walkingMinutes}</p>
+              <p>Sprinting minutes to burn extra calories: {results.sprintingMinutes}</p>
+              <p>Push-ups needed: {results.pushups}</p>
+              <p>Squats needed: {results.squats}</p>
+            </>
+          ) : (
+            <div style={{ color: "#888", textAlign: "center" }}>
+              <p>Enter your details and press Calculate to see results.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

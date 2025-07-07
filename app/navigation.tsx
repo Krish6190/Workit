@@ -4,6 +4,7 @@ import { LogOut } from "./Authenticate";
 export default function NavigationBar(){
     return(
         <div className="navBar">
+            <p>WorkIt</p>
             <Link href={"/home"}>About</Link>
             <Link href={"/calculator"}>Calculator</Link>
             <LogOut/>
