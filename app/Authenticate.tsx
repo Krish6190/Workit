@@ -54,7 +54,7 @@ export function LogOut(){
     const router=useRouter();
     async function handleLogout(){
         await fetch("./api/logout",{method:"POSt"});
-        router.push("./login");
+        router.push("./");
     }
     return(
         <div className="LogOut" onClick={()=>handleLogout()}>Logout</div>
