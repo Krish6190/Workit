@@ -220,16 +220,18 @@
   box-shadow: 0 2px 8px rgba(156, 156, 156, 0.08);
   font-size: 1.5em;
   height: 75px;
+  gap: 0;
 }
 .navBar p{
   font-size: 1.6em;
   font-style: italic;
   font-family: 'Merri';
-  flex: 8;
+  flex: 7;
 }
 
 .navBar a{
   text-decoration: none;
+  color: #490d77;
   flex: 1;
 }
 

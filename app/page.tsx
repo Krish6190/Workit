@@ -3,7 +3,7 @@
 TO DO : 
 Find good background images
 Add an About page
-Make a Middleware
+Add a Profile Page
 */
 import {Authentication} from "./Authenticate";
 import Register from "./register";
