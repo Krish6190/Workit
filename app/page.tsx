@@ -2,8 +2,10 @@
 /*
 TO DO : 
 Find good background images
+Add logic to save users age sex height weight
+Add Css to profile
 Add an About page
-Add a Profile Page
+Add a edit profile section
 */
 import {Authentication} from "./Authenticate";
 import Register from "./register";

@@ -17,7 +17,7 @@ export function Authentication() {
             body: JSON.stringify({ username, password })
         });
         if (res.ok) {
-            router.push(`/home`);
+            router.push(`/profile`);
         } else {
             const data = await res.json();
             SetError(data.error ||"Incorrect Credentials");
