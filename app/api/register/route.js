@@ -22,6 +22,10 @@ export async function POST(req){
             data:{
                 username,
                 password:hashPass,
+                age:'NA',
+                height:'NA',
+                weight:'NA',
+                sex:'NA',
             }
         });
         return new Response(
