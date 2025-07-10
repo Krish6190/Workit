@@ -10,9 +10,7 @@ export default async function Profile() {
     const username = cookieStore.get("session")?.value;
     const prisma= new PrismaClient();
     const user = await prisma.user.findUnique({ where: { username } });
-    if(user){
-        const age=user;
-    }
+    const age=user.age, height=user.height, weight=user.weight, sex=user.sex;
     return (
         <div>
             <NavigationBar />
