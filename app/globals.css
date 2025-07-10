@@ -12,11 +12,14 @@
   background-repeat: no-repeat;    
   min-height: 100vh;               
   width: 100%;
+  margin: 0;
+  background: radial-gradient(circle,#fdfcf7,#190d05);
 }
+
 .welcome{
   font-size: 3em;
   text-align: center;
-  margin: 2.2em 0 0 0;
+  padding: 2.2em 0 0 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -119,7 +122,7 @@
 }
 
 .auth-bar{
-  margin:70px;
+  padding:70px;
   size: 1em;
   max-width: 750;
   font-size: 1.5em;
@@ -178,9 +181,10 @@
 }
 
 .logReg{
+  color: #79624e;
   position: fixed;
-  right:7%;
-  bottom:10%;
+  right:26%;
+  bottom:21%;
 }
 
 #registerFrom{
@@ -209,20 +213,76 @@
   top: 48px;
 }
 
+.page-transition-wrapper {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.page {
+  position: absolute;
+  width: 100vw;
+  min-height: 100vh;
+  top: 0;
+  left: 0;
+  will-change: transform, opacity;
+}
+
+.page-old {
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.7s cubic-bezier(.68,-0.7,.27,1);
+}
+
+.page-fade-out {
+  opacity: 0;
+}
+
+.page-new {
+  z-index: 2;
+  opacity: 1;
+  transform: translateY(0);
+  transition: none;
+}
+
+.page-transition-wrapper.page-animating .page-new {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.page-slide-in {
+  animation: slideInDown 0.7s cubic-bezier(.68,-0.7,.27,1) forwards;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0.7;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .navBar {
-  margin-right: 20px;
   display: flex;
   align-items: center;
-  border-radius: 12px;
   padding-left: 5rem;
   padding-right: 2rem;
-  background-color: #d8e0ea90;
+  background-color: #222222;
   box-shadow: 0 2px 8px rgba(156, 156, 156, 0.08);
   font-size: 1.5em;
   height: 75px;
   gap: 0;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
+
 .navBar p{
+  color: #ffffff;
   font-size: 1.6em;
   font-style: italic;
   font-family: 'Merri';
@@ -231,12 +291,12 @@
 
 .navBar a{
   text-decoration: none;
-  color: #490d77;
+  color: #ffffff;
   flex: 1;
 }
 
 .LogOut{
-  color: red;
+  color: #ff6b6b;
   background: transparent;
   border: none;
   font-size: 1em;
@@ -246,41 +306,103 @@
   flex: 1;
 }
 
-.profile{
-  margin: 50px 0 0 0;
-  padding: 20px;
+.profile-bg {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(180deg, #334464 30%, #fcf8fc 140%);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-.ProfileImage{
+.profile-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(60, 72, 88, 0.15);
+  width: 370px;
+  margin: 48px auto 0 auto;
+  padding: 32px 32px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.profile-img-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-img {
   border-radius: 50%;
-} 
+  border: 4px solid #7234fa;
+  box-shadow: 0 2px 8px rgba(60, 72, 88, 0.10);
+}
 
-.profileText{
-  padding: 10px 50px 0 0;
+.editProfileBtn {
+  margin-top: 14px;
+  background: #7234fa ;
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.editProfileBtn:hover {
+  background: #ddd8ce;
+}
+
+.profile-username {
+  margin: 18px 0 0 0;
+  font-size: 1.8em;
+  color: #22223b;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.profile-card-body {
+  margin-top: 30px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
-.profileSection{
+.profile-info {
   display: flex;
-  gap: 50px;
+  justify-content:center;
+  gap: 4rem;
 }
 
-.sections{
-  display: flex;
-  flex-direction: column;
+.profile-label {
+  display: block;
+  font-size: 1em;
+  color: #6366f1;
+  font-weight: 500;
+  margin-bottom: 4px;
 }
 
-.profileSection input{
-  max-width: 150px;
-}
-
-.editProfile{
-  display: flex;
-  justify-content: flex-end;
-  text-decoration: solid;
-  padding: 30px 200px 0 0;
+.profile-value {
+  display: block;
+  font-size: 1.08em;
+  color: #22223b;
+  font-weight: 500;
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 4px 12px;
+  min-width: 60px;
+  text-align: center;
 }

@@ -8,45 +8,53 @@ import { PrismaClient } from "@prisma/client";
 export default async function Profile() {
     const cookieStore = await cookies();
     const username = cookieStore.get("session")?.value;
-    const prisma= new PrismaClient();
+    const prisma = new PrismaClient();
     const user = await prisma.user.findUnique({ where: { username } });
-    const age=user.age, height=user.height, weight=user.weight, sex=user.sex;
+    const age = user?.age, height = user?.height, weight = user?.weight, sex = user?.sex;
+
     return (
-        <div>
-            <NavigationBar />
-            <Link href={"profile/edit"} className="editProfile">
-                <FaPencil style={{ marginRight: "8px" }} />Edit profile
-            </Link>
-            <div className="profile">
-                <div className="profileText">
-                    <div className="profileSection">
-                        <div className="sections">Name
-                            <input readOnly value={username}></input>
+            <div className="profile-bg">
+                <NavigationBar />
+                <div className="profile-card">
+                    <div className="profile-card-header">
+                        <div className="profile-img-container">
+                            <Image
+                                src="/pictures/blank-profile.webp"
+                                alt="Profile"
+                                width={140}
+                                height={120}
+                                className="profile-img"
+                            />
+                            <Link href="/profile/edit" className="editProfileBtn">
+                                <FaPencil style={{ marginRight: "8px" }} />
+                                Edit Profile
+                            </Link>
                         </div>
-                        <div className="sections">Age
-                            <input readOnly value={age || 'NA'}></input>
-                        </div>
+                        <h2 className="profile-username">{username}</h2>
                     </div>
-                    <div className="profileSection">
-                        <div className="sections">Weight
-                            <input readOnly value={weight || 'NA'}></input>
+                    <div className="profile-card-body">
+                        <div className="profile-info">
+                            <div>
+                                <span className="profile-label">Age</span>
+                                <span className="profile-value">{age || 'NA'}</span>
+                            </div>
+                            <div>
+                                <span className="profile-label">Sex</span>
+                                <span className="profile-value">{sex || 'NA'}</span>
+                            </div>
                         </div>
-                        <div className="sections">Height
-                            <input readOnly value={height || 'NA'}></input>
-                        </div>
-                    </div>
-                    <div className="profileSection">
-                        <div className="sections">Sex
-                            <input readOnly value={sex || 'NA'}></input>
+                        <div className="profile-info">
+                            <div>
+                                <span className="profile-label">Height</span>
+                                <span className="profile-value">{height || 'NA'}</span>
+                            </div>
+                            <div>
+                                <span className="profile-label">Weight</span>
+                                <span className="profile-value">{weight || 'NA'}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <Image
-                    src="/pictures/blank-profile.webp"
-                    alt="/pictures/blank-profile.webp"
-                    width={150} height={130} className="ProfileImage"
-                ></Image>
             </div>
-        </div>
-    )
+    );
 }
