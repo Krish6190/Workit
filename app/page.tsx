@@ -3,7 +3,6 @@
 TO DO : 
 Find good background images
 Add an About page
-Add a edit profile section
 */
 import {Authentication} from "./Authenticate";
 import Register from "./register";

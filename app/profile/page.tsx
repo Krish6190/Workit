@@ -11,6 +11,7 @@ export default async function Profile() {
     const prisma = new PrismaClient();
     const user = await prisma.user.findUnique({ where: { username } });
     const age = user?.age, height = user?.height, weight = user?.weight, sex = user?.sex;
+    const fullName = (user as any)?.fullName || username;
 
     return (
             <div className="profile-bg">
@@ -30,27 +31,28 @@ export default async function Profile() {
                                 Edit Profile
                             </Link>
                         </div>
-                        <h2 className="profile-username">{username}</h2>
+                        <h2 className="profile-username">{fullName}</h2>
+                        <p className="profile-handle">@{username}</p>
                     </div>
                     <div className="profile-card-body">
                         <div className="profile-info">
                             <div>
                                 <span className="profile-label">Age</span>
-                                <span className="profile-value">{age || 'NA'}</span>
+                                <span className="profile-value">{age === 'NA' ? 'Not provided' : age || 'Not provided'}</span>
                             </div>
                             <div>
                                 <span className="profile-label">Sex</span>
-                                <span className="profile-value">{sex || 'NA'}</span>
+                                <span className="profile-value">{sex === 'NA' ? 'Not provided' : sex || 'Not provided'}</span>
                             </div>
                         </div>
                         <div className="profile-info">
                             <div>
                                 <span className="profile-label">Height</span>
-                                <span className="profile-value">{height || 'NA'}</span>
+                                <span className="profile-value">{height === 'NA' ? 'Not provided' : height ? `${height} cm` : 'Not provided'}</span>
                             </div>
                             <div>
                                 <span className="profile-label">Weight</span>
-                                <span className="profile-value">{weight || 'NA'}</span>
+                                <span className="profile-value">{weight === 'NA' ? 'Not provided' : weight ? `${weight} kg` : 'Not provided'}</span>
                             </div>
                         </div>
                     </div>

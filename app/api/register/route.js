@@ -22,6 +22,9 @@ export async function POST(req){
             data:{
                 username,
                 password:hashPass,
+                fullName:null,
+                email:null,
+                phone:null,
                 age:'NA',
                 height:'NA',
                 weight:'NA',
@@ -32,7 +35,6 @@ export async function POST(req){
             JSON.stringify({message:"Registeration Successfull"}),{status:201}
         );
     }catch(error){
-        console.log("Registration error",error);
         return new Response(
             JSON.stringify({error:"Registration Failed"}),{status:500}
         );
