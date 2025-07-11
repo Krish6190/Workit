@@ -2,7 +2,6 @@
 /*
 TO DO : 
 Find good background images
-Add Css to profile
 Add an About page
 Add a edit profile section
 */

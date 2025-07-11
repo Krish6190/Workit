@@ -1,5 +1,4 @@
 "use client"
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDelayedNavigation } from "./hooks/useDelayedNavigation";
@@ -19,7 +18,7 @@ export function Authentication() {
             body: JSON.stringify({ username, password })
         });
         if (res.ok) {
-            navigateWithDelay("/profile");
+            navigateWithDelay("/profile", 500, "bottom");
         } else {
             const data = await res.json();
             SetError(data.error ||"Incorrect Credentials");
@@ -57,7 +56,7 @@ export function LogOut(){
     
     async function handleLogout(){
         await fetch("./api/logout",{method:"POSt"});
-        navigateWithDelay("/");
+        navigateWithDelay("/", 500, "top");
     }
     return(
         <div className="LogOut" onClick={()=>handleLogout()}>Logout</div>
