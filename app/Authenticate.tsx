@@ -2,13 +2,15 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDelayedNavigation } from "./hooks/useDelayedNavigation";
 
 export function Authentication() {
     let [username, SetUsername] = useState("");
     let [password, SetPassword] = useState("");
     let [error,SetError] = useState("");
     let[showPassword,SetShowPassword] = useState(false);
-    let router=useRouter();
+    const { navigateWithDelay } = useDelayedNavigation();
+    
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const res=await fetch("/api/login", {
@@ -17,7 +19,7 @@ export function Authentication() {
             body: JSON.stringify({ username, password })
         });
         if (res.ok) {
-            router.push(`/profile`);
+            navigateWithDelay("/profile");
         } else {
             const data = await res.json();
             SetError(data.error ||"Incorrect Credentials");
@@ -51,10 +53,11 @@ export function Authentication() {
 }
 
 export function LogOut(){
-    const router=useRouter();
+    const { navigateWithDelay } = useDelayedNavigation();
+    
     async function handleLogout(){
         await fetch("./api/logout",{method:"POSt"});
-        router.push("./");
+        navigateWithDelay("/");
     }
     return(
         <div className="LogOut" onClick={()=>handleLogout()}>Logout</div>

@@ -213,58 +213,144 @@
   top: 48px;
 }
 
-.page-transition-wrapper {
+.slide-transition-container {
   position: relative;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   overflow: hidden;
 }
 
-.page {
-  position: absolute;
-  width: 100vw;
-  min-height: 100vh;
-  top: 0;
-  left: 0;
-  will-change: transform, opacity;
+.page-content {
+  position: relative;
+  z-index: 1;
+}
+
+.page-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .page-old {
-  z-index: 1;
-  opacity: 1;
-  transition: opacity 0.7s cubic-bezier(.68,-0.7,.27,1);
-}
-
-.page-fade-out {
-  opacity: 0;
-}
-
-.page-new {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 2;
-  opacity: 1;
-  transform: translateY(0);
-  transition: none;
 }
 
-.page-transition-wrapper.page-animating .page-new {
-  opacity: 0;
-  transform: translateY(-100%);
+.slide-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #222222;
+  transform: translateY(100%);
+  z-index: 9999;
+  pointer-events: none;
 }
 
-.page-slide-in {
-  animation: slideInDown 0.7s cubic-bezier(.68,-0.7,.27,1) forwards;
+.slide-overlay.active {
+  animation: slideInOut 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
 
-@keyframes slideInDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0.7;
+@keyframes slideInOut {
+  0% {
+    transform: translateY(100%);
   }
-  to {
-    transform: translateY(0);
+  41.67% {
+    transform: translateY(0%);
+  }
+  58.33% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.tv-static {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  background-image: linear-gradient(transparent, rgba(0,0,0,0.1) 50%, transparent 75%), linear-gradient(90deg, transparent, #ccc 75%, transparent 90%);
+  background-size: 200% 200%, 200% 200%;
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity 0.1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.tv-static.active {
+  opacity: 1;
+  animation: static-noise 0.15s steps(2) infinite;
+}
+
+@keyframes static-noise {
+  0% {
+    background-position: 0% 0%, 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%, 100% 100%;
+  }
+}
+
+@keyframes tv-close {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleY(0.1) scaleX(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scaleY(0) scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes tv-open {
+  0% {
+    transform: scaleY(0) scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleY(0.1) scaleX(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
     opacity: 1;
   }
 }
+
+@keyframes tv-transition {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: scaleY(0.1) scaleX(0.9);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleY(0) scaleX(0);
+    opacity: 0;
+  }
+  75% {
+    transform: scaleY(0.1) scaleX(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 
 .navBar {
   display: flex;
