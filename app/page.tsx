@@ -1,10 +1,9 @@
 "use client"
 /*
 TO DO : 
-Find good background images
 Add an About page
 Add css to calculator and add an item picker in the calculator
-Add profile picture update
+Add profile picture update api
 */
 
 import {Authentication} from "./Authenticate";

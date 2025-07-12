@@ -809,14 +809,66 @@
   }
 }
 
-.editImg{
-  position:absolute;
-  top: 170%;
-  color: #ffffff;
-  padding: 5px;
-  min-width: 70px;
-  background-color: rgb(10, 1, 20);
-  font-size: 1.6em;
-  border-radius: 8px;
-  z-index: 1000;
+.editImg-container {
+  position: relative;
+  z-index: 10;
+}
+
+.editImg-button {
+  position: absolute;
+  bottom: -10px;
+  left: -10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: rgba(0,0,0,0.7);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.editImg-button:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.editImg {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: -10px;
+  background-color: rgba(0,0,0,0.7);
+  color: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 150px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  margin-top: 8px;
+visibility: hidden;
+opacity: 0;
+transition: visibility 0s, opacity 0.2s ease-in-out;
+pointer-events: none;
+}
+
+.editImg.visible {
+visibility: visible;
+opacity: 1;
+pointer-events: auto;
+}
+
+
+.editImg-option {
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.9em;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.editImg-option:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }

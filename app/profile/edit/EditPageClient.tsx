@@ -1,7 +1,7 @@
 "use client";
 
 import NavigationBar from "@/app/navigation";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDelayedNavigation } from "@/app/hooks/useDelayedNavigation";
 import { FaPencil } from "react-icons/fa6";
 import Image from "next/image";
@@ -25,6 +25,25 @@ export default function EditPageClient({ username, initialData }: EditPageClient
     const [success, setSuccess] = useState("");
     const [open, setOpen] = useState(false);
     const { navigateWithDelay } = useDelayedNavigation();
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (open && 
+                dropdownRef.current && 
+                buttonRef.current && 
+                !dropdownRef.current.contains(event.target as Node) &&
+                !buttonRef.current.contains(event.target as Node)) {
+                setOpen(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [open]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { id, value } = e.target;
@@ -83,14 +102,15 @@ export default function EditPageClient({ username, initialData }: EditPageClient
                                 height={120}
                                 className="edit-avatar-img"
                             />
-                            <div style={{ display: "inline-block", position: "relative" }}>
-                                <button onClick={() => setOpen((o) => !o)}>
-                                    <FaPencil style={{ color: "" }} />Edit
+                            <div className="editImg-container">
+                                <button ref={buttonRef} className="editImg-button" onClick={() => setOpen((o) => !o)}>
+                                    <FaPencil size={14} />
+                                    <span>Edit</span>
                                 </button>
                                 {open && (
-                                    <div className="editImg">
-                                        <div>Upload Image...</div>
-                                        <div>Remove Image</div>
+                                    <div ref={dropdownRef} className={`editImg ${open ? 'visible' : ''}`}>
+                                        <div className="editImg-option">Upload Image...</div>
+                                        <div className="editImg-option">Remove Image</div>
                                     </div>
                                 )}
                             </div>
