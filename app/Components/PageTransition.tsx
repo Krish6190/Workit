@@ -1,9 +1,11 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 type PageTransitionContextType = {
     isNavigating: boolean;
+    isLoading: boolean;
     setIsNavigating: (value: boolean, direction?: string) => void;
+    setIsLoading: (value: boolean) => void;
 };
 
 const PageTransitionContext = createContext<PageTransitionContextType | undefined>(undefined);
@@ -24,7 +26,14 @@ type PageTransitionProps = {
 
 export default function PageTransition({ children }: PageTransitionProps) {
     const [isNavigating, setIsNavigating] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [slideDirection, setSlideDirection] = useState('top');
+    const [isPageReady, setIsPageReady] = useState(false);
+
+    useEffect(() => {
+        setIsPageReady(true);
+        return () => setIsPageReady(false);
+    }, []);
 
     const handleNavigation = (value: boolean, direction?: string) => {
         if (value) {
@@ -38,10 +47,17 @@ export default function PageTransition({ children }: PageTransitionProps) {
         setIsNavigating(value);
     };
 
+    const contextValue = {
+        isNavigating,
+        isLoading,
+        setIsNavigating: handleNavigation,
+        setIsLoading
+    };
+
     return (
-        <PageTransitionContext.Provider value={{ isNavigating, setIsNavigating: handleNavigation }}>
+        <PageTransitionContext.Provider value={contextValue}>
             <div className="slide-transition-container">
-                <div className="page-content">
+                <div className={`page-content ${!isPageReady || isLoading ? 'page-hidden' : ''}`}>
                     {children}
                 </div>
                 

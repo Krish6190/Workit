@@ -61,8 +61,8 @@ export default function Calculator() {
     const walkCalPerMin = 3.5 * weightNum / 60;
     const sprintCalPerMin = 11 * weightNum / 60;
 
-    let walkingMinutes = calories / walkCalPerMin;
-    let sprintingMinutes = calories / sprintCalPerMin;
+    const walkingMinutes = calories / walkCalPerMin;
+    const sprintingMinutes = calories / sprintCalPerMin;
     let pushups = 0;
     let squats = 0;
     let walkingDisplay = 0;

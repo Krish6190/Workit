@@ -7,14 +7,17 @@ export function useDelayedNavigation() {
     const { setIsNavigating } = usePageTransition();
 
     const navigateWithDelay = (path: string, delay: number = 500, direction?: string) => {
-        setIsNavigating(true, direction);
         
+        const animationDuration = direction === 'left' || direction === 'right' ? 1500 : 1400;
+        const midPoint = animationDuration * 0.4; 
+        setIsNavigating(true, direction);
         setTimeout(() => {
             router.push(path);
-            setTimeout(() => {
-                setIsNavigating(false);
-            }, 700); 
-        }, delay);
+        }, midPoint);
+
+        setTimeout(() => {
+            setIsNavigating(false);
+        }, animationDuration);
     };
 
     return { navigateWithDelay };
