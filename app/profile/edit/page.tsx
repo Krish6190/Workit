@@ -17,6 +17,7 @@ export default async function Edit() {
     const weight = user?.weight === "NA" ? "" : user?.weight || "";
     const sex = user?.sex === "NA" ? "" : user?.sex || "";
     const fullName = (user as any)?.fullName || username;
+    const profileImg=user?.profileImg===""?"/pictures/blank-profile.webp":user?.profileImg||"/pictures/blank-profile.webp";
 
     return (
         <EditPageClient 
@@ -26,7 +27,8 @@ export default async function Edit() {
                 age: age || '',
                 height: height || '',
                 weight: weight || '',
-                sex: sex || ''
+                sex: sex || '',
+                profileImg: profileImg || '',
             }}
         />
     );

@@ -254,10 +254,10 @@
   0% {
     transform: translateY(100%);
   }
-  41.67% {
+  39.67% {
     transform: translateY(0%);
   }
-  58.33% {
+  60.33% {
     transform: translateY(0%);
   }
   100% {
@@ -266,17 +266,17 @@
 }
 
 .slide-overlay.slide-top.active {
-  animation: slideInOut 1.5s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+  animation: slideInOut 1.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
 
 @keyframes slideInOutLeft {
   0% {
     transform: translateX(-100%);
   }
-  41.67% {
+  34.67% {
     transform: translateX(0%);
   }
-  58.33% {
+  61.33% {
     transform: translateX(0%);
   }
   100% {
@@ -291,10 +291,10 @@
   0% {
     transform: translateY(-100%);
   }
-  41.67% {
+  39.67% {
     transform: translateY(0%);
   }
-  58.33% {
+  60.33% {
     transform: translateY(0%);
   }
   100% {
@@ -309,10 +309,10 @@
   0% {
     transform: translateX(100%);
   }
-  41.67% {
+  34.67% {
     transform: translateX(0%);
   }
-  58.33% {
+  61.33% {
     transform: translateX(0%);
   }
   100% {

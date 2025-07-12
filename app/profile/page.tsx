@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { FaPencil } from "react-icons/fa6";
 import { PrismaClient } from "@prisma/client";
 import {EditButton} from "./editButton";
+import { profile } from "console";
 
 export default async function Profile() {
     const cookieStore = await cookies();
@@ -12,6 +13,7 @@ export default async function Profile() {
     const user = await prisma.user.findUnique({ where: { username } });
     const age = user?.age, height = user?.height, weight = user?.weight, sex = user?.sex;
     const fullName = (user as any)?.fullName || username;
+    const profileImg=user?.profileImg;
 
     return (
             <div className="profile-bg">
@@ -20,7 +22,7 @@ export default async function Profile() {
                     <div className="profile-card-header">
                         <div className="profile-img-container">
                             <Image
-                                src="/pictures/blank-profile.webp"
+                                src={profileImg===''?"/pictures/blank-profile.webp":profileImg||"/pictures/blank-profile.webp"}
                                 alt="Profile"
                                 width={140}
                                 height={120}

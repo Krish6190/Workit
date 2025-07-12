@@ -18,10 +18,11 @@ export function Authentication() {
             body: JSON.stringify({ username, password })
         });
         if (res.ok) {
-            navigateWithDelay("/profile", 500, "bottom");
+            navigateWithDelay("/profile", 700, "bottom");
         } else {
             const data = await res.json();
             SetError(data.error ||"Incorrect Credentials");
+            SetPassword("");    
         }
     }
     return (

@@ -14,6 +14,7 @@ type EditPageClientProps = {
         height: string;
         weight: string;
         sex: string;
+        profileImg:string;
     };
 };
 
