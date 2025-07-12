@@ -8,15 +8,16 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  password  String
-  fullName  String?
-  email     String?
-  phone     String?  @default("NA")
-  age       String?  @default("NA")
-  height    String?  @default("NA")
-  weight    String?  @default("NA")
-  sex       String?  @default("NA")
-  createdAt DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  username   String   @unique
+  password   String
+  fullName   String?
+  email      String?
+  phone      String?  @default("NA")
+  age        String?  @default("NA")
+  height     String?  @default("NA")
+  weight     String?  @default("NA")
+  sex        String?  @default("NA")
+  profileImg String?
+  createdAt  DateTime @default(now())
 }

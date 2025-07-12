@@ -2,8 +2,8 @@ import NavigationBar from "../navigation";
 import Image from "next/image";
 import { cookies } from "next/headers";
 import { FaPencil } from "react-icons/fa6";
-import Link from "next/link";
 import { PrismaClient } from "@prisma/client";
+import {EditButton} from "./editButton";
 
 export default async function Profile() {
     const cookieStore = await cookies();
@@ -26,10 +26,7 @@ export default async function Profile() {
                                 height={120}
                                 className="profile-img"
                             />
-                            <Link href="/profile/edit" className="editProfileBtn">
-                                <FaPencil style={{ marginRight: "8px" }} />
-                                Edit Profile
-                            </Link>
+                            <EditButton/>
                         </div>
                         <h2 className="profile-username">{fullName}</h2>
                         <p className="profile-handle">@{username}</p>
