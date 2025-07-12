@@ -6,7 +6,7 @@ export function useDelayedNavigation() {
     const router = useRouter();
     const { setIsNavigating } = usePageTransition();
 
-    const navigateWithDelay = (path: string, delay: number = 500, direction?: string) => {
+    const navigateWithDelay = (path: string, direction?: string) => {
         
         const animationDuration = direction === 'left' || direction === 'right' ? 1500 : 1400;
         const midPoint = animationDuration * 0.4; 

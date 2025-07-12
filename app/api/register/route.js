@@ -34,7 +34,7 @@ export async function POST(req){
         return new Response(
             JSON.stringify({message:"Registeration Successfull"}),{status:201}
         );
-    }catch(error){
+} catch {
         return new Response(
             JSON.stringify({error:"Registration Failed"}),{status:500}
         );

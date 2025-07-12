@@ -4,7 +4,7 @@ import NavigationBar from "@/app/navigation";
 import { useState } from "react";
 import { useDelayedNavigation } from "@/app/hooks/useDelayedNavigation";
 import { FaPencil } from "react-icons/fa6";
-import { CldUploadButton } from "next-cloudinary";
+import Image from "next/image";
 
 type EditPageClientProps = {
     username: string;
@@ -52,13 +52,13 @@ export default function EditPageClient({ username, initialData }: EditPageClient
             if (response.ok) {
                 setSuccess("Profile updated successfully!");
                 setTimeout(() => {
-                    navigateWithDelay("/profile", 500, "right");
+                    navigateWithDelay("/profile", "right");
                 }, 1000);
             } else {
                 const data = await response.json();
                 setError(data.error || "Failed to update profile");
             }
-        } catch (error) {
+        } catch {
             setError("An error occurred while updating profile");
         } finally {
             setIsSubmitting(false);
@@ -66,7 +66,7 @@ export default function EditPageClient({ username, initialData }: EditPageClient
     };
 
     const handleCancel = () => {
-        navigateWithDelay("/profile", 500, "left");
+        navigateWithDelay("/profile", "left");
     };
 
     return (
@@ -76,7 +76,7 @@ export default function EditPageClient({ username, initialData }: EditPageClient
                 <div className="edit-profile-card">
                     <div className="edit-profile-header">
                         <div className="edit-profile-avatar">
-                            <img
+                            <Image
                                 src="/pictures/blank-profile.webp"
                                 alt="Profile"
                                 width={140}
@@ -97,7 +97,7 @@ export default function EditPageClient({ username, initialData }: EditPageClient
                         </div>
                         <h1 className="edit-profile-name">{username}</h1>
                     </div>
-    
+
                     <form className="edit-profile-form" onSubmit={handleSubmit}>
                         <div className="edit-form-section">
                             <h3 className="edit-section-title">Personal Information</h3>
@@ -127,7 +127,7 @@ export default function EditPageClient({ username, initialData }: EditPageClient
                                 </div>
                             </div>
                         </div>
-    
+
                         <div className="edit-form-section">
                             <h3 className="edit-section-title">Health Information</h3>
                             <div className="edit-form-grid">
@@ -170,10 +170,10 @@ export default function EditPageClient({ username, initialData }: EditPageClient
                                 </div>
                             </div>
                         </div>
-    
+
                         {error && <p className="error" style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
                         {success && <p className="success" style={{ color: 'green', textAlign: 'center' }}>{success}</p>}
-    
+
                         <div className="edit-form-actions">
                             <button
                                 type="button"

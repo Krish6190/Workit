@@ -13,18 +13,18 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Home() {
-  let [prop, setProp] = useState(1);
+const [prop, setProp] = useState(false);
 
   function login() {
-    if (prop != 1) setProp(1);
+    if (prop != true) setProp(true);
   }
 
   function signup() {
-    if (prop != 0) setProp(0);
+    if (prop != false) setProp(false);
   }
 
   function showLogin() {
-    setProp(1);
+    setProp(true);
   }
   return (
         <div className="welcomeContainer">
@@ -33,8 +33,8 @@ export default function Home() {
             <br></br>
             So who are we serving Today
           </div>
-          {prop==1 && <Authentication></Authentication>}
-          {prop==0 && <Register onRegisterSuccess={showLogin}></Register>}
+          {prop==true && <Authentication></Authentication>}
+          {prop==false && <Register onRegisterSuccess={showLogin}></Register>}
           <div className="logReg">
             <Link href="" onClick={() => { login() }}>Login |</Link><Link href="" onClick={() => { signup() }}>  SignUP</Link>
           </div>

@@ -33,7 +33,7 @@ export async function POST(req) {
             JSON.stringify({ message: "Profile updated successfully", user: updatedUser }),
             { status: 200 }
         );
-    } catch (error) {
+} catch {
         return new Response(
             JSON.stringify({ error: "Failed to update profile" }),
             { status: 500 }
