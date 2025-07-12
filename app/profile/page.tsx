@@ -1,7 +1,7 @@
 import NavigationBar from "../navigation";
 import Image from "next/image";
 import { cookies } from "next/headers";
-import { PrismaClient } from "@prisma/client/edge";
+import { PrismaClient } from "@prisma/client";
 import { EditButton } from "./editButton";
 
 export default async function Profile() {

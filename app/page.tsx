@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Home() {
-const [prop, setProp] = useState(false);
+const [prop, setProp] = useState(true);
 
   function login() {
     if (prop != true) setProp(true);

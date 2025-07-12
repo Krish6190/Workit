@@ -15,13 +15,18 @@ export function Authentication() {
         const res = await fetch("/api/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ username, password }),
         });
         if (res.ok) {
             navigateWithDelay("/profile", "bottom");
         } else {
-            const data = await res.json();
-            SetError(data.error || "Incorrect Credentials");
+            let errorMessage = "Incorrect Credentials";
+            const contentType = res.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                const data = await res.json();
+                errorMessage = data.error || errorMessage;
+            }
+            SetError(errorMessage);
             SetPassword("");
         }
     }

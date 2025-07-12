@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { PrismaClient } from "@prisma/client/edge";
+import { PrismaClient } from "@prisma/client";
 import EditPageClient from "./EditPageClient";
 
 export default async function Edit() {
