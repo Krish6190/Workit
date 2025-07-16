@@ -15,7 +15,7 @@ export async function POST(req) {
             );
         }
 
-        const { fullName, age, height, weight, sex } = await req.json();
+        const { fullName, age, height, weight, sex, profileImg } = await req.json();
 
 
         const updatedUser = await prisma.user.update({
@@ -25,7 +25,8 @@ export async function POST(req) {
                 age: age || "NA",
                 height: height || "NA",
                 weight: weight || "NA",
-                sex: sex || "NA"
+                sex: sex || "NA",
+                profileImg:profileImg||"",
             }
         });
 

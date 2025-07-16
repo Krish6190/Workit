@@ -27,12 +27,13 @@ export default function EditPageClient({ username, initialData }: EditPageClient
     const { navigateWithDelay } = useDelayedNavigation();
     const dropdownRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
-
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [isUploading, setIsUploading] = useState(false);
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            if (open && 
-                dropdownRef.current && 
-                buttonRef.current && 
+            if (open &&
+                dropdownRef.current &&
+                buttonRef.current &&
                 !dropdownRef.current.contains(event.target as Node) &&
                 !buttonRef.current.contains(event.target as Node)) {
                 setOpen(false);
@@ -88,6 +89,88 @@ export default function EditPageClient({ username, initialData }: EditPageClient
         navigateWithDelay("/profile", "left");
     };
 
+    const uploadToCloudinary = async (file: File) => {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('/api/cloudinary/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Upload failed');
+            }
+
+            const data = await response.json();
+            return data.url;
+        } catch (error) {
+            console.error('Error uploading to Cloudinary:', error);
+            throw error;
+        }
+    };
+
+    const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        setIsUploading(true);
+        setError('');
+
+        try {
+            const oldImageUrl = formData.profileImg;
+            if (oldImageUrl && oldImageUrl.includes('res.cloudinary.com')) {
+                await deleteFromCloudinary(oldImageUrl);
+            }
+            
+            const imageUrl = await uploadToCloudinary(file);
+            setFormData(prev => ({
+                ...prev,
+                profileImg: imageUrl
+            }));
+            setOpen(false);
+        } catch (error) {
+            setError(error instanceof Error ? error.message : 'Failed to upload image. Please try again.');
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    const handleUploadClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const deleteFromCloudinary = async (imageUrl: string) => {
+        try {
+            const response = await fetch('/api/cloudinary/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ imageUrl }),
+            });
+
+            if (!response.ok) {
+                console.error('Failed to delete image from Cloudinary');
+            }
+        } catch (error) {
+            console.error('Error deleting image from Cloudinary:', error);
+        }
+    };
+
+    const handleRemoveImage = async () => {
+        const currentImageUrl = formData.profileImg;
+        
+        if (currentImageUrl && currentImageUrl.includes('res.cloudinary.com')) {
+            await deleteFromCloudinary(currentImageUrl);
+        }
+        
+        setFormData(prev => ({ ...prev, profileImg: "" }));
+        setOpen(false);
+    };
+
     return (
         <div className="edit-profile-bg">
             <NavigationBar />
@@ -96,7 +179,7 @@ export default function EditPageClient({ username, initialData }: EditPageClient
                     <div className="edit-profile-header">
                         <div className="edit-profile-avatar">
                             <Image
-                                src="/pictures/blank-profile.webp"
+                                src={formData.profileImg || "/pictures/blank-profile.webp"}
                                 alt="Profile"
                                 width={140}
                                 height={120}
@@ -109,10 +192,25 @@ export default function EditPageClient({ username, initialData }: EditPageClient
                                 </button>
                                 {open && (
                                     <div ref={dropdownRef} className={`editImg ${open ? 'visible' : ''}`}>
-                                        <div className="editImg-option">Upload Image...</div>
-                                        <div className="editImg-option">Remove Image</div>
+                                        <button 
+                                            className="editImg-option" 
+                                            onClick={handleUploadClick}
+                                            disabled={isUploading}
+                                        >
+                                            {isUploading ? 'Uploading...' : 'Upload Image...'}
+                                        </button>
+                                        <button className="editImg-option" onClick={handleRemoveImage}>
+                                            Remove Image
+                                        </button>
                                     </div>
                                 )}
+                                <input
+                                    ref={fileInputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    style={{ display: 'none' }}
+                                    onChange={handleFileUpload}
+                                />
                             </div>
                         </div>
                         <h1 className="edit-profile-name">{username}</h1>
