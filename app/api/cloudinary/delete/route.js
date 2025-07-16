@@ -25,16 +25,26 @@ export async function DELETE(request) {
                 { status: 400 }
             );
         }
+        console.log('Attempting to delete image with public_id:', publicId);
         const result = await cloudinary.uploader.destroy(publicId);
+        console.log('Cloudinary delete result:', result);
         
         if (result.result === 'ok') {
             return new Response(
                 JSON.stringify({ message: 'Image deleted successfully' }),
                 { status: 200 }
             );
+        } else if (result.result === 'not found') {
+            return new Response(
+                JSON.stringify({ error: 'Image not found in Cloudinary' }),
+                { status: 404 }
+            );
         } else {
             return new Response(
-                JSON.stringify({ error: 'Failed to delete image from Cloudinary' }),
+                JSON.stringify({ 
+                    error: 'Failed to delete image from Cloudinary',
+                    details: result 
+                }),
                 { status: 500 }
             );
         }
@@ -49,15 +59,26 @@ export async function DELETE(request) {
 
 function extractPublicId(url) {
     try {
+        console.log('Attempting to extract public_id from URL:', url);
         const parts = url.split('/');
         const uploadIndex = parts.indexOf('upload');
-        if (uploadIndex === -1) return null;
-        let publicIdPart = parts[uploadIndex + 2]; 
+        if (uploadIndex === -1) {
+            console.log('Upload index not found in URL');
+            return null;
+        }
+        
+        let startIndex = uploadIndex + 1;
+        if (parts[startIndex] && parts[startIndex].startsWith('v')) {
+            startIndex = uploadIndex + 2;
+        }
+        let publicIdParts = parts.slice(startIndex);
+        let publicIdPart = publicIdParts.join('/');
         const lastDotIndex = publicIdPart.lastIndexOf('.');
         if (lastDotIndex !== -1) {
             publicIdPart = publicIdPart.substring(0, lastDotIndex);
         }
         
+        console.log('Extracted public_id:', publicIdPart);
         return publicIdPart;
     } catch (error) {
         console.error('Error extracting public_id:', error);

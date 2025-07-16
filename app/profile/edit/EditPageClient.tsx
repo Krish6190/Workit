@@ -73,7 +73,7 @@ export default function EditPageClient({ username, initialData }: EditPageClient
                 setSuccess("Profile updated successfully!");
                 setTimeout(() => {
                     navigateWithDelay("/profile", "right");
-                }, 1000);
+                }, 500); 
             } else {
                 const data = await response.json();
                 setError(data.error || "Failed to update profile");
@@ -181,8 +181,8 @@ export default function EditPageClient({ username, initialData }: EditPageClient
                             <Image
                                 src={formData.profileImg || "/pictures/blank-profile.webp"}
                                 alt="Profile"
-                                width={140}
-                                height={120}
+                                width={210}
+                                height={180}
                                 className="edit-avatar-img"
                             />
                             <div className="editImg-container">

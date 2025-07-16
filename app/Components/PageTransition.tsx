@@ -28,22 +28,27 @@ export default function PageTransition({ children }: PageTransitionProps) {
     const [isNavigating, setIsNavigating] = useState(false);
     const [slideDirection, setSlideDirection] = useState('top');
     const [prevChildren, setPrevChildren] = useState<React.ReactNode>(children);
+    const [currentChildren, setCurrentChildren] = useState<React.ReactNode>(children);
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
     useEffect(() => {
         if (!isNavigating) {
-            setPrevChildren(children);
+            setPrevChildren(currentChildren);
+            setCurrentChildren(children);
         }
     }, [children, isNavigating]);
 
     useEffect(() => {
         if (isNavigating) {
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 setIsNavigating(false);
-            }, 1500);
+                setPrevChildren(currentChildren);
+                setCurrentChildren(children);
+            }, 1600); 
+            return () => clearTimeout(timer);
         }
-    }, [pathname, searchParams]);
+    }, [pathname, searchParams, children, currentChildren]);
 
     const handleNavigation = (value: boolean, direction?: string) => {
         if (value) {

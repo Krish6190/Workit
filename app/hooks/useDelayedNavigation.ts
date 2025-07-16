@@ -12,7 +12,7 @@ export function useDelayedNavigation() {
         setIsNavigating(true, direction);
         setTimeout(() => {
             router.push(path);
-        }, 600);
+        }, 600); 
     };
 
     return { navigateWithDelay };
