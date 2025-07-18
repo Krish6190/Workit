@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import NavigationBar from "../navigation";
+import { useDelayedNavigation } from "../hooks/useDelayedNavigation";
 
 interface FormState {
   age: string;
@@ -84,6 +85,7 @@ function parseParameters(params: InitialParams = {}): FormState {
 
 export default function Calculator({ initialParams }: CalculatorProps) {
   const [form, setForm] = useState<FormState>(() => parseParameters(initialParams));
+  const { navigateWithDelay } = useDelayedNavigation();
 
   const [results, setResults] = useState<Results | null>(null);
   const [selectedMode, setSelectedMode] = useState<"walking" | "sprinting">("walking");
@@ -154,126 +156,156 @@ export default function Calculator({ initialParams }: CalculatorProps) {
   return (
     <div>
       <NavigationBar />
-      <div className="calculator-container">
-        <form className="calculator-form" onSubmit={handleSubmit}>
-          <h1>Calorie Burn Calculator</h1>
+      <div className="calculator-layout">
+        <div className="calculator-container">
+          <div className="calculator-section">
+            <h1>Calorie Burn Calculator</h1>
+            <form className="calculator-form" onSubmit={handleSubmit}>
+              <div className="form-container">
+                <div className="form-row full-width">
+                  <div className="label">
+                    <label htmlFor="age">Age:</label>
+                    <input
+                      id="age"
+                      type="number"
+                      name="age"
+                      value={form.age}
+                      onChange={handleChange}
+                      min={0}
+                      max={110}
+                    />
+                  </div>
+                </div>
 
-          <div className="label">
-            <label htmlFor="age">Age:</label>
-            <input
-              id="age"
-              type="number"
-              name="age"
-              value={form.age}
-              onChange={handleChange}
-              min={0}
-              max={110}
-            />
-          </div>
+                <div className="form-row full-width">
+                  <div className="label">
+                    <label htmlFor="sex">Sex:</label>
+                    <div className="option-group">
+                      <button
+                        type="button"
+                        className={`option ${form.sex === 'male' ? 'active' : ''}`}
+                        onClick={() => setForm(prev => ({ ...prev, sex: 'male' }))}
+                      >
+                        Male
+                      </button>
+                      <button
+                        type="button"
+                        className={`option ${form.sex === 'female' ? 'active' : ''}`}
+                        onClick={() => setForm(prev => ({ ...prev, sex: 'female' }))}
+                      >
+                        Female
+                      </button>
+                    </div>
+                  </div>
+                </div>
 
-          <div className="label">
-            <label htmlFor="sex">Sex:</label>
-            <select
-              id="sex"
-              name="sex"
-              value={form.sex}
-              onChange={handleChange}
-            >
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
+                <div className="form-row two-columns">
+                  <div className="label">
+                    <label htmlFor="weight">Weight (kg):</label>
+                    <input
+                      id="weight"
+                      type="number"
+                      name="weight"
+                      value={form.weight}
+                      onChange={handleChange}
+                      min={0}
+                    />
+                  </div>
 
-          <div className="label">
-            <label htmlFor="weight">Weight (kg):</label>
-            <input
-              id="weight"
-              type="number"
-              name="weight"
-              value={form.weight}
-              onChange={handleChange}
-              min={0}
-            />
-          </div>
+                  <div className="label">
+                    <label htmlFor="height">Height (cm):</label>
+                    <input
+                      id="height"
+                      type="number"
+                      name="height"
+                      value={form.height}
+                      onChange={handleChange}
+                      min={0}
+                    />
+                  </div>
+                </div>
 
-          <div className="label">
-            <label htmlFor="height">Height (cm):</label>
-            <input
-              id="height"
-              type="number"
-              name="height"
-              value={form.height}
-              onChange={handleChange}
-              min={0}
-            />
-          </div>
+                <div className="form-row two-columns">
+                  <div className="label">
+                    <label htmlFor="activityLevel">Activity Level:</label>
+                    <select
+                      id="activityLevel"
+                      name="activityLevel"
+                      value={form.activityLevel}
+                      onChange={handleChange}
+                    >
+                      <option value="1.2">Sedentary</option>
+                      <option value="1.375">Lightly active</option>
+                      <option value="1.55">Moderately active</option>
+                      <option value="1.725">Active</option>
+                      <option value="1.9">Very active</option>
+                    </select>
+                  </div>
 
-          <div className="label">
-            <label htmlFor="activityLevel">Activity Level:</label>
-            <select
-              id="activityLevel"
-              name="activityLevel"
-              value={form.activityLevel}
-              onChange={handleChange}
-            >
-              <option value="1.2">Sedentary</option>
-              <option value="1.375">Lightly active</option>
-              <option value="1.55">Moderately active</option>
-              <option value="1.725">Active</option>
-              <option value="1.9">Very active</option>
-            </select>
-          </div>
-
-          <div className="label">
-            <label htmlFor="extraCalories">Extra Calories Consumed:</label>
-            <input
-              id="extraCalories"
-              type="number"
-              name="extraCalories"
-              value={form.extraCalories}
-              onChange={handleChange}
-              min={0}
-            />
-          </div>
-
-          <button type="submit">Calculate</button>
-        </form>
-
-        <div className="results-panel">
-          {results ? (
-            <>
-              <h2>Results</h2>
-              <p>Choose what you like:
-                <button
-                  className={selectedMode === "walking" ? "active" : ""}
-                  onClick={() => setSelectedMode("walking")}
-                  style={{ margin: "0 5px", padding: "2px 6px" }}
+                  <div className="label">
+                    <label htmlFor="extraCalories">Extra Calories Consumed:</label>
+                    <input
+                      id="extraCalories"
+                      type="number"
+                      name="extraCalories"
+                      value={form.extraCalories}
+                      onChange={handleChange}
+                      min={0}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="button-group">
+                <button 
+                  type="button" 
+                  className="pick-items-btn"
+                  onClick={() => navigateWithDelay("/calculator/items")}
                 >
-                  Walking
+                  Pick Items
                 </button>
-                <button
-                  className={selectedMode === "sprinting" ? "active" : ""}
-                  onClick={() => setSelectedMode("sprinting")}
-                  style={{ margin: "0 5px", padding: "2px 6px" }}
-                >
-                  Sprinting
-                </button>
-              </p>
-              <p>BMR: {results.bmr} kcal/day</p>
-              <p>Calories Burned to Survive: {results.tdee} kcal/day</p>
-              {selectedMode === "walking" ? (
-                <p>Walking(5km/h): {results.walkingMinutes} min</p>
+                <button type="submit">Calculate</button>
+              </div>
+            </form>
+          </div>
+          
+          <div className="results-section">
+            <div className="results-panel">
+              {results ? (
+                <>
+                  <h2>Results</h2>
+                  <p>Choose what you like:
+                    <button
+                      className={selectedMode === "walking" ? "active" : ""}
+                      onClick={() => setSelectedMode("walking")}
+                      style={{ margin: "0 5px", padding: "2px 6px" }}
+                    >
+                      Walking
+                    </button>
+                    <button
+                      className={selectedMode === "sprinting" ? "active" : ""}
+                      onClick={() => setSelectedMode("sprinting")}
+                      style={{ margin: "0 5px", padding: "2px 6px" }}
+                    >
+                      Sprinting
+                    </button>
+                  </p>
+                  <p>BMR: {results.bmr} kcal/day</p>
+                  <p>Calories Burned to Survive: {results.tdee} kcal/day</p>
+                  {selectedMode === "walking" ? (
+                    <p>Walking(5km/h): {results.walkingMinutes} min</p>
+                  ) : (
+                    <p>Sprinting(8km/h): {results.sprintingMinutes} min</p>
+                  )}
+                  <p>Push-ups: {results.pushups}</p>
+                  <p>Squats: {results.squats}</p>
+                </>
               ) : (
-                <p>Sprinting(8km/h): {results.sprintingMinutes} min</p>
+                <div style={{ color: "#888", textAlign: "center" }}>
+                  <p>Enter your details and press Calculate to see results.</p>
+                </div>
               )}
-              <p>Push-ups: {results.pushups}</p>
-              <p>Squats: {results.squats}</p>
-            </>
-          ) : (
-            <div style={{ color: "#888", textAlign: "center" }}>
-              <p>Enter your details and press Calculate to see results.</p>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
