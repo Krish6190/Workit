@@ -1,9 +1,9 @@
 "use client"
 /*
 TO DO : 
-Add an About page
-Add css to calculator and add an item picker in the calculator
-Add profile picture update api
+Update the UI of About page
+Add Suggested items ++
+Add logic to calculate calories and provide an item number selection logic
 */
 
 import {Authentication} from "./Authenticate";

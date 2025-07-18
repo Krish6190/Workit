@@ -1,0 +1,73 @@
+{
+  "foodItems": [
+    {
+      "name": "Apple",
+      "calories": 95,
+      "serving": "1 apple",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752821781/lmgpqscd5r8celadatin.jpg"
+    },
+    {
+      "name": "Pizza",
+      "calories": 285,
+      "serving": "1 slice",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752844139/ddthqdc7ybsah1afdahu.jpg"
+    },
+    {
+      "name": "Avocado",
+      "calories": 234,
+      "serving": "1 avocado",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752821782/qphht8e3lixx6r8y6bjf.jpg"
+    },
+    {
+      "name": "Banana",
+      "calories": 105,
+      "serving": "1 banana",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752821782/blowy4exr2vsh0xxg6i9.jpg"
+    },
+    {
+      "name": "Burger",
+      "calories": 540,
+      "serving": "1 medium burger",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752844139/imbkkqpwp8096rsmzhsl.jpg"
+    },
+    {
+      "name": "Donut",
+      "calories": 250,
+      "serving": "1 glazed donut",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752844139/zulzcwbbhu4pdbkwddjl.jpg"
+    },
+    {
+      "name": "Fries",
+      "calories": 365,
+      "serving": "1 medium serving",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752844139/km6kyp1hcgwk7uduexgy.jpg"
+    },
+    {
+      "name": "Mango",
+      "calories": 135,
+      "serving": "1 mango",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752821782/rsjxxkfvan8z2gbocstc.jpg"
+    },
+    {
+      "name": "Orange",
+      "calories": 65,
+      "serving": "1 orange",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752821782/fjl1milsz3sfutohvdfb.jpg"
+    },
+    {
+      "name": "Pear",
+      "calories": 85,
+      "serving": "1 pear",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752821782/kylthfbehdip3zeavpgd.jpg"
+    },
+    {
+      "name": "Watermelon",
+      "calories": 85,
+      "serving": "1 serving",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752821782/jqtmjm7wk1rd5endbn07.jpg"
+    }
+  ],
+  "suggestedItems": [
+    "Pineapple"
+  ]
+}
