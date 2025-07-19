@@ -3,7 +3,7 @@
 TO DO : 
 Update the UI of About page
 Add Suggested items ++
-Add logic to calculate calories and provide an item number selection logic
+Add logic to calculate calories and provide an item number selection logic also add a button to go back 
 */
 
 import {Authentication} from "./Authenticate";

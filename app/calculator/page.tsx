@@ -16,6 +16,7 @@ interface PageProps {
 }
 
 export default async function CalculatorPage({ searchParams }: PageProps) {
+  const search=await searchParams;
   const prisma = new PrismaClient();
   let userParams = {
     age: "",
@@ -23,7 +24,7 @@ export default async function CalculatorPage({ searchParams }: PageProps) {
     weight: "",
     height: "",
     activityLevel: "",
-    extraCalories: ""
+    extraCalories: search.extraCalories || ""
   };
   
   try {
@@ -49,7 +50,7 @@ export default async function CalculatorPage({ searchParams }: PageProps) {
   const finalParams = {
     ...userParams,
     ...Object.fromEntries(
-      Object.entries(searchParams).map(([key, value]) => [key, value || ""])
+      Object.entries(search).map(([key, value]) => [key, value || ""])
     )
   };
   
