@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState, useEffect, useRef } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import {usePathname } from "next/navigation";
 
 type PageTransitionContextType = {
     isNavigating: boolean;

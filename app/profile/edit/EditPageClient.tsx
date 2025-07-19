@@ -107,7 +107,6 @@ export default function EditPageClient({ username, initialData }: EditPageClient
             const data = await response.json();
             return data.url;
         } catch (error) {
-            console.error('Error uploading to Cloudinary:', error);
             throw error;
         }
     };
@@ -153,10 +152,10 @@ export default function EditPageClient({ username, initialData }: EditPageClient
             });
 
             if (!response.ok) {
-                console.error('Failed to delete image from Cloudinary');
+                console.error('Failed to delete image from Cloudniary');
             }
         } catch (error) {
-            console.error('Error deleting image from Cloudinary:', error);
+            console.error('Error deleting image from Cloudniary:',error);
         }
     };
 
