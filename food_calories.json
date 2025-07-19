@@ -65,9 +65,33 @@
       "calories": 85,
       "serving": "1 serving",
       "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752821782/jqtmjm7wk1rd5endbn07.jpg"
+    },
+    {
+      "name": "Chapati/Roti",
+      "calories": 120,
+      "serving": "1 piece",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752923478/d261d610-c242-456f-b8e6-43a9654c2666.png"
+    },
+    {
+      "name": "Rice",
+      "calories": 130,
+      "serving": "100g",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752923785/e9672a59-927c-48e8-bb00-96b171a72864.png"
+    },
+    {
+      "name": "Pasta/Macaroni",
+      "calories": 131,
+      "serving": "100g",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752923959/24deffd8-d800-4879-b183-11596d787778.png"
+    },
+    {
+      "name": "Pineapple",
+      "calories": 40,
+      "serving": "1 slice",
+      "imageUrl": "https://res.cloudinary.com/db02grjum/image/upload/v1752924165/4fdba13f-43fd-466e-8072-3af4d6552489.png"
     }
   ],
   "suggestedItems": [
-    "Pineapple"
+    ""
   ]
 }

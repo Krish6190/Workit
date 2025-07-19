@@ -1,16 +1,23 @@
 "use client";
 import { LogOut } from "./Authenticate";
 import { useDelayedNavigation } from "./hooks/useDelayedNavigation";
+import { useRouter } from "next/navigation";
 
 export default function NavigationBar(){
     const { navigateWithDelay } = useDelayedNavigation();
+    const router = useRouter();
+    
+    const handleNavigation = (path: string, e: React.MouseEvent) => {
+        e.preventDefault();
+        navigateWithDelay(path);
+    };
     
     return(
         <div className="navBar">
             <p>WorkIt</p>
-            <a href="#" onClick={(e) => { e.preventDefault(); navigateWithDelay("/home"); }}>About</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); navigateWithDelay("/profile"); }}>Profile</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); navigateWithDelay("/calculator"); }}>Calculator</a>
+            <a href="#" onClick={(e) => handleNavigation("/home", e)}>About</a>
+            <a href="#" onClick={(e) => handleNavigation("/profile", e)}>Profile</a>
+            <a href="#" onClick={(e) => handleNavigation("/calculator", e)}>Calculator</a>
             <LogOut/>
         </div>
     );

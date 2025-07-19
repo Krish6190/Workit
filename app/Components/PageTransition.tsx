@@ -7,10 +7,11 @@ type PageTransitionContextType = {
     isLoading: boolean;
     setIsNavigating: (value: boolean, direction?: string) => void;
     setIsLoading: (value: boolean) => void;
+    startTransition: (callback: () => void, direction?: string) => void;
 };
 
 const PageTransitionContext = createContext<PageTransitionContextType | undefined>(undefined);
-const horizontalDirections = ['left', 'right'];
+const allDirections = ['left', 'right', 'top', 'bottom'];
 
 export function usePageTransition() {
     const context = useContext(PageTransitionContext);
@@ -26,89 +27,82 @@ type PageTransitionProps = {
 
 export default function PageTransition({ children }: PageTransitionProps) {
     const [isNavigating, setIsNavigating] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [slideDirection, setSlideDirection] = useState('top');
-    const [prevChildren, setPrevChildren] = useState<React.ReactNode>(children);
-    const [currentChildren, setCurrentChildren] = useState<React.ReactNode>(children);
-    const [pageLoaded, setPageLoaded] = useState(false);
+    const [displayChildren, setDisplayChildren] = useState<React.ReactNode>(children);
     const pathname = usePathname();
-    const searchParams = useSearchParams();
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const navigationCallbackRef = useRef<(() => void) | null>(null);
 
     useEffect(() => {
         if (!isNavigating) {
-            setPrevChildren(currentChildren);
-            setCurrentChildren(children);
-            setPageLoaded(false);
+            setDisplayChildren(children);
         }
     }, [children, isNavigating]);
 
-    // Wait for page to load after navigation starts
     useEffect(() => {
-        if (isNavigating && !pageLoaded) {
-            // Clear any existing timeout
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-            
-            // Wait for next tick to allow React to render the new content
-            const checkPageLoad = () => {
-                // Wait for images, fonts, and other resources to load
-                if (document.readyState === 'complete') {
-                    setPageLoaded(true);
-                } else {
-                    // If not complete, wait a bit more
-                    timeoutRef.current = setTimeout(checkPageLoad, 100);
-                }
-            };
-            
-            // Start checking after a short delay to allow React to update
-            timeoutRef.current = setTimeout(checkPageLoad, 100);
-            
-            return () => {
-                if (timeoutRef.current) {
-                    clearTimeout(timeoutRef.current);
-                }
-            };
-        }
-    }, [isNavigating, pageLoaded]);
+        if (isLoading) {
 
-    // Handle the slide-out animation after page loads
-    useEffect(() => {
-        if (isNavigating && pageLoaded) {
-            // Page is loaded, now wait for the slide-out animation to complete
-            const slideOutTimer = setTimeout(() => {
-                setIsNavigating(false);
-                setPrevChildren(currentChildren);
-                setCurrentChildren(children);
-                setPageLoaded(false);
-            }, 1500); // 1500ms for slide-out animation
-            
-            return () => clearTimeout(slideOutTimer);
+            const slideCompleteTimer = setTimeout(() => {
+                setDisplayChildren(children);
+                setIsLoading(false);
+
+                setTimeout(() => {
+                    setIsNavigating(false);
+                }, 400);
+            }, 200);
+            return () => clearTimeout(slideCompleteTimer);
         }
-    }, [pageLoaded, isNavigating, children, currentChildren]);
+    }, [isLoading, children]);
 
     const handleNavigation = (value: boolean, direction?: string) => {
         if (value) {
             if (direction) {
                 setSlideDirection(direction);
             } else {
-                const randomDirection = horizontalDirections[Math.floor(Math.random() * horizontalDirections.length)];
+                const randomDirection = allDirections[Math.floor(Math.random() * allDirections.length)];
                 setSlideDirection(randomDirection);
             }
         }
         setIsNavigating(value);
     };
 
+    const startTransition = (callback: () => void, direction?: string) => {
+        if (isNavigating) {
+            return;
+        }
+
+        if (direction) {
+            setSlideDirection(direction);
+        } else {
+            const randomDirection = allDirections[Math.floor(Math.random() * allDirections.length)];
+            setSlideDirection(randomDirection);
+        }
+        setIsNavigating(true);
+        navigationCallbackRef.current = callback;
+        setTimeout(() => {
+            if (navigationCallbackRef.current) {
+                setIsLoading(true);
+                navigationCallbackRef.current();
+            }
+        }, 600);
+    };
+    useEffect(() => {
+        if (!isNavigating && isLoading) {
+            setIsLoading(false);
+            navigationCallbackRef.current = null;
+        }
+    }, [isNavigating, isLoading]);
     return (
         <PageTransitionContext.Provider value={{
             isNavigating,
-            isLoading: false,
+            isLoading,
             setIsNavigating: handleNavigation,
-            setIsLoading: () => {}
+            setIsLoading,
+            startTransition
         }}>
             <div className="slide-transition-container">
                 <div className="page-content">
-                    {isNavigating ? prevChildren : children}
+                    {displayChildren}
                 </div>
                 <div className={`slide-overlay slide-${slideDirection} ${isNavigating ? 'active' : ''}`}></div>
             </div>
