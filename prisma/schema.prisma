@@ -18,6 +18,6 @@ model User {
   height     String?  @default("NA")
   weight     String?  @default("NA")
   sex        String?  @default("NA")
-  profileImg String?
+  profileImg String?  @default("")
   createdAt  DateTime @default(now())
 }

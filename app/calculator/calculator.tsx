@@ -113,10 +113,10 @@ export default function Calculator({ initialParams }: CalculatorProps) {
     e.preventDefault();
     const bmr = calculateBMR(form);
     const tdee = bmr * Number(form.activityLevel);
-    const calories = Number(form.extraCalories);
+    const calories = (Number(form.extraCalories)-tdee)>0?Number(form.extraCalories)-tdee:0;
     const weightNum = Number(form.weight);
-    const walkCalPerMin = 3.5 * weightNum / 60;
-    const sprintCalPerMin = 11 * weightNum / 60;
+    const walkCalPerMin = 8.6 * weightNum / 60;
+    const sprintCalPerMin = 18 * weightNum / 60;
 
     const walkingMinutes = calories / walkCalPerMin;
     const sprintingMinutes = calories / sprintCalPerMin;
@@ -136,8 +136,8 @@ export default function Calculator({ initialParams }: CalculatorProps) {
 
       walkingDisplay = 5 + (eachPart / walkCalPerMin);
       sprintingDisplay = 5 + (eachPart / sprintCalPerMin);
-      pushups = eachPart / 0.45;
-      squats = eachPart / 0.13;
+      pushups = eachPart / 0.40;
+      squats = eachPart / 0.225;
     }
 
     setTimeout(() => {
@@ -243,7 +243,7 @@ export default function Calculator({ initialParams }: CalculatorProps) {
                   </div>
 
                   <div className="label">
-                    <label htmlFor="extraCalories">Extra Calories Consumed:</label>
+                    <label htmlFor="extraCalories">Total Calorie Intake:</label>
                     <input
                       id="extraCalories"
                       type="number"
