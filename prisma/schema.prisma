@@ -20,4 +20,31 @@ model User {
   sex        String?  @default("NA")
   profileImg String?  @default("")
   createdAt  DateTime @default(now())
+  foodLogs   FoodLog[]
+}
+
+model FoodLog {
+  id           Int           @id @default(autoincrement())
+  userId       Int
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date         DateTime
+  totalCalories Int          @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  items        FoodLogItem[]
+  
+  @@unique([userId, date])
+}
+
+model FoodLogItem {
+  id        Int     @id @default(autoincrement())
+  foodLogId Int
+  foodLog   FoodLog @relation(fields: [foodLogId], references: [id], onDelete: Cascade)
+  name      String
+  calories  Int
+  serving   String
+  quantity  Float   @default(1)
+  imageUrl  String?
+  time      String? 
+  createdAt DateTime @default(now())
 }

@@ -2,6 +2,25 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export async function GET() {
+  try {
+    const filePath = path.join(process.cwd(), 'food_calories.json');
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const data = JSON.parse(fileContent);
+    
+    return NextResponse.json({
+      foodItems: data.foodItems,
+      suggestedItems: data.suggestedItems
+    });
+  } catch (error) {
+    console.error('Error loading food items:', error);
+    return NextResponse.json(
+      { error: 'Failed to load food items' }, 
+      { status: 500 }
+    );
+  }
+}
+
 export async function POST(req) {
   try {
     const { newItem } = await req.json();
