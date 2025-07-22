@@ -18,6 +18,7 @@ export default function NavigationBar(){
             <a href="#" onClick={(e) => handleNavigation("/home", e)}>About</a>
             <a href="#" onClick={(e) => handleNavigation("/profile", e)}>Profile</a>
             <a href="#" onClick={(e) => handleNavigation("/calculator", e)}>Calculator</a>
+            <a href="#" onClick={(e) => handleNavigation("/food-diary", e)}>Food Diary</a>
             <LogOut/>
         </div>
     );

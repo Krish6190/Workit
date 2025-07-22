@@ -12,11 +12,11 @@ interface SearchParams {
 }
 
 interface PageProps {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }
 
 export default async function CalculatorPage({ searchParams }: PageProps) {
-  const search=await searchParams;
+  const search = await searchParams;
   const prisma = new PrismaClient();
   let userParams = {
     age: "",
